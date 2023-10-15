@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'login.dart';
+import 'goals.dart'; // Importing goals.dart
 
 class Home extends StatelessWidget {
-  Home({super.key});
+  Home({Key? key}) : super(key: key); // Corrected the super call
 
   final Box _boxLogin = Hive.box("login");
 
@@ -42,21 +43,29 @@ class Home extends StatelessWidget {
         ],
       ),
       backgroundColor: Theme.of(context).colorScheme.primary,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Welcome ",
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              _boxLogin.get("userName"),
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Welcome ",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+          const SizedBox(height: 10),
+          Text(
+            _boxLogin.get("userName") ?? "", // Handling null value
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          const SizedBox(height: 20), // Added spacing
+          ElevatedButton( // Added the button
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Goals()),
+              );
+            },
+            child: const Text('Add Your Goals'),
+          ),
+        ],
       ),
     );
   }
