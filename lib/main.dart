@@ -14,4 +14,5 @@ Future<void> _initHive() async{
   await Hive.openBox("accounts");
   await Hive.openBox("home");
   await Hive.openBox("goals");
+  await Hive.openBox("swag");
 }
